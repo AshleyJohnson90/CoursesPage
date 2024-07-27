@@ -1,0 +1,6 @@
+@CoursesPage.Server_HostAddress = https://localhost:7221
+
+GET {{CoursesPage.Server_HostAddress}}/
+Accept: application/json
+
+###
