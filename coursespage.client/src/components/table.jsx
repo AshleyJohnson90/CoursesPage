@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
     Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer,
-    TableHead, TableRow, Typography, MenuItem, Select, FormControl, InputLabel
+    TableHead, TableRow, Typography, MenuItem, Select, FormControl, InputLabel, Paper
 } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp, ExpandMore } from '@mui/icons-material';
 import axios from 'axios';
@@ -13,9 +13,9 @@ function CollapsibleRow(props) {
 
     return (
         <React.Fragment>
-            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+            <TableRow>
                 <TableCell>
-                    <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+                    <IconButton aria-label="expand row" size="medium" onClick={() => setOpen(!open)}>
                         {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                     </IconButton>
                 </TableCell>
@@ -25,7 +25,7 @@ function CollapsibleRow(props) {
                 <TableCell>{row.prerequisite}</TableCell>
             </TableRow>
             <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
                             <Typography variant="h5" gutterBottom component="div">Description</Typography>
@@ -89,7 +89,7 @@ function CoursesTable() {
     };
 
     return (
-        <div id="table-container">
+        <>
             <div>
                 <FormControl variant="outlined" fullWidth margin="normal">
                     <InputLabel>Filter by Subject</InputLabel>
@@ -104,28 +104,33 @@ function CoursesTable() {
                     </Select>
                 </FormControl>
             </div>
-            <Box id="table-box" sx={{ height: '60vh', overflow: 'auto' }}>
-                <TableContainer>
-                    <Table>
+            <div>
+            <Paper elevation={7}>
+                <Box id="table-box" sx={{ height: '60vh', overflow: 'auto', borderRadius: '10px' }}>
+
+                    <TableContainer>
+                    <Table id="table">
                         <TableHead>
                             <TableRow>
-                                <TableCell />
+                                <TableCell style={{ width: '3%' }} />
                                 <TableCell
                                     onClick={() => handleSort('subject')}
-                                    style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                                    style={{ width: '15%', fontSize: '1rem' }}
                                 >
                                     Subject
                                     <ExpandMore
                                         sx={{
+                                            fontSize: 20,
+                                            background: 'none',
                                             ml: 1,
                                             transition: '0.3s',
                                             transform: orderBy === 'subject' ? (sortDirection === 'asc' ? 'rotate(0deg)' : 'rotate(180deg)') : 'rotate(0deg)',
                                         }}
                                     />
                                 </TableCell>
-                                <TableCell>Course ID</TableCell>
-                                <TableCell>Course Name</TableCell>
-                                <TableCell>Prerequisite</TableCell>
+                                <TableCell style={{ width: '10%', fontSize: '1rem' }}>Course ID</TableCell>
+                                <TableCell style={{ width: '30%', fontSize: '1rem' }}>Course Name</TableCell>
+                                <TableCell style={{ width: '33%', fontSize: '1rem' }}>Prerequisite(s)</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -135,8 +140,10 @@ function CoursesTable() {
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </Box>
-        </div>
+                </Box>
+            </Paper>
+            </div>
+        </>
     );
 };
 

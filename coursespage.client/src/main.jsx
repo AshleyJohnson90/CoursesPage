@@ -16,6 +16,8 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     backgroundColor: '#fff',
+                    borderRadius: '10px',
+                    textAlign: 'left',
                 },
             },
         },
@@ -31,13 +33,7 @@ const theme = createTheme({
                 },
             },
         },
-        MuiTableHead: {
-            styleOverrides: {
-                root: {
-                    backgroundColor: '#d7e6f1',
-                },
-            },
-        },
+
     },
 });
 

@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import CoursesTable from './components/table';
+import { Header } from './header/siteHeader'
+
+
 
 function App() {
     return(
         <div className='App'>
-            <header className='App-header'>
+            <Header />
+        <div>
                 <h1>Search for courses</h1>
-            </header>
-            <main>
+        </div>
+            <div id="body-content">
                 <CoursesTable />
-            </main>
+            </div>
         </div>
     );
 }
