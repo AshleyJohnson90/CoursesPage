@@ -5,17 +5,24 @@ import App from './App.jsx';
 import './index.css';
 
 const theme = createTheme({
+    palette: {
+        text: {
+            primary: '#00244E',
+        },
+    },
     typography: {
-        fontFamily: [
-            'Poppins',
-            'Raleway'
-        ].join(','),
+        fontFamily: 'Poppins',
+        allVariants: {
+            color: '#00244E',
+        }
     },
     components: {
         MuiFormControl: {
             styleOverrides: {
                 root: {
                     backgroundColor: '#fff',
+                    borderRadius: '10px',
+                    textAlign: 'left',
                 },
             },
         },
@@ -31,10 +38,10 @@ const theme = createTheme({
                 },
             },
         },
-        MuiTableHead: {
+        MuiPaper: {
             styleOverrides: {
                 root: {
-                    backgroundColor: '#d7e6f1',
+                    color: '#00244E',
                 },
             },
         },
