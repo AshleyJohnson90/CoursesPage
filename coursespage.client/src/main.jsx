@@ -5,11 +5,16 @@ import App from './App.jsx';
 import './index.css';
 
 const theme = createTheme({
+    palette: {
+        text: {
+            primary: '#00244E',
+        },
+    },
     typography: {
-        fontFamily: [
-            'Poppins',
-            'Raleway'
-        ].join(','),
+        fontFamily: 'Poppins',
+        allVariants: {
+            color: '#00244E',
+        }
     },
     components: {
         MuiFormControl: {
@@ -33,7 +38,13 @@ const theme = createTheme({
                 },
             },
         },
-
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    color: '#00244E',
+                },
+            },
+        },
     },
 });
 

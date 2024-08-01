@@ -20,8 +20,8 @@ function CollapsibleRow(props) {
                     </IconButton>
                 </TableCell>
                 <TableCell>{row.subject}</TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}>{row.id}</TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}>{row.name}</TableCell>
+                <TableCell sx={{ fontWeight: 'bold'}}>{row.id}</TableCell>
+                <TableCell sx={{ fontWeight: 'bold'}}>{row.name}</TableCell>
                 <TableCell>{row.prerequisite}</TableCell>
             </TableRow>
             <TableRow>
@@ -106,7 +106,7 @@ function CoursesTable() {
             </div>
             <div>
             <Paper elevation={7}>
-                <Box id="table-box" sx={{ height: '60vh', overflow: 'auto', borderRadius: '10px' }}>
+                    <Box id="table-box" sx={{ height: '60vh', overflow: 'auto', borderRadius: '10px' }}>
 
                     <TableContainer>
                     <Table id="table">
@@ -148,4 +148,3 @@ function CoursesTable() {
 };
 
 export default CoursesTable;
-
