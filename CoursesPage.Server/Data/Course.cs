@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CoursesPage.Server.Data;
+﻿namespace CoursesPage.Server.Data;
 
 public partial class Course
 {
