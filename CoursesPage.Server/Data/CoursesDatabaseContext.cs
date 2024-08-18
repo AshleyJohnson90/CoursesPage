@@ -1,43 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace CoursesPage.Server.Data;
 
 public partial class CoursesDatabaseContext : DbContext
 {
-    public CoursesDatabaseContext()
-    {
-    }
+	private readonly IConfiguration _configuration;
 
-    public CoursesDatabaseContext(DbContextOptions<CoursesDatabaseContext> options)
-        : base(options)
-    {
-    }
+	public CoursesDatabaseContext(IConfiguration configuration)
+	{
+		_configuration = configuration;
+	}
 
-    public virtual DbSet<Course> Courses { get; set; }
+	public CoursesDatabaseContext(DbContextOptions<CoursesDatabaseContext> options, IConfiguration configuration)
+		: base(options)
+	{
+		_configuration = configuration;
+	}
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Database=CoursesDatabase;Username=Ashley;Password=CS499");
+	public virtual DbSet<Course> Courses { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Course>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("courses_pkey");
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	{
+		if (!optionsBuilder.IsConfigured)
+		{
+			var connectionString = _configuration.GetConnectionString("PostgresDatabase");
+			optionsBuilder.UseNpgsql(connectionString);
+		}
+	}
 
-            entity.ToTable("courses");
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	{
+		modelBuilder.Entity<Course>(entity =>
+		{
+			entity.HasKey(e => e.Id).HasName("courses_pkey");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Description).HasColumnName("description");
-            entity.Property(e => e.Name).HasColumnName("name");
-            entity.Property(e => e.Prerequisite).HasColumnName("prerequisite");
-            entity.Property(e => e.Subject).HasColumnName("subject");
-        });
+			entity.ToTable("courses");
 
-        OnModelCreatingPartial(modelBuilder);
-    }
+			entity.Property(e => e.Id).HasColumnName("id");
+			entity.Property(e => e.Description).HasColumnName("description");
+			entity.Property(e => e.Name).HasColumnName("name");
+			entity.Property(e => e.Prerequisite).HasColumnName("prerequisite");
+			entity.Property(e => e.Subject).HasColumnName("subject");
+		});
 
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+		OnModelCreatingPartial(modelBuilder);
+	}
+
+	partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
